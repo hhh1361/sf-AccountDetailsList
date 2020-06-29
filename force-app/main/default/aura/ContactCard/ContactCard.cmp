@@ -1,0 +1,41 @@
+<aura:component implements="lightning:actionOverride,flexipage:availableForRecordHome,force:hasRecordId" access="global" controller="AccountDetailsController">
+    <aura:attribute name="contact" type="Contact" />
+
+
+    <force:recordData aura:id="forceRecord"
+        recordId="{!v.recordId}"
+        targetFields="{!v.contact}"
+        fields="Id, FirstName, LastName, Title, Email, Account.Name"
+        mode="VIEW" />
+
+    <!-- <aura:handler name="init" value="{!this}" action="{!c.doInit}" /> -->
+
+
+    <lightning:recordViewForm aura:id="viewForm" recordId="{!v.contact.Id}" objectApiName="Contact">
+        <lightning:layout class="slds-hint-parent">
+            <a onclick="{!c.navToRecord}">
+                <h3 class="slds-text-heading_small slds-m-bottom_xx-small">{!v.contact.Name}</h3>
+            </a>
+            <lightning:buttonIcon iconName="utility:edit" class="slds-col_bump-left" iconClass="slds-button__icon_hint" variant="bare" alternativeText="Edit Record"/>
+        </lightning:layout>
+        <lightning:layout multipleRows="true">
+            <lightning:layoutItem size="6">
+                <lightning:outputField fieldName="FirstName"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="6">
+                <lightning:outputField fieldName="LastName"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="6">
+                <lightning:outputField fieldName="Title"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="6">
+                <lightning:outputField fieldName="Email"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="6">
+                <lightning:outputField fieldName="AccountId"/>
+            </lightning:layoutItem>
+        </lightning:layout>
+    </lightning:recordViewForm>
+
+
+</aura:component>

@@ -1,29 +1,22 @@
 <aura:component implements="lightning:actionOverride,flexipage:availableForRecordHome,force:hasRecordId" access="global" controller="AccountDetailsController">
-    <aura:attribute name="AccountRecord" type="Account" />
-    <aura:attribute name="ContactsList" type="Contact[]" />
+    <aura:attribute name="accountRecord" type="Account" />
+    <aura:attribute name="contactsList" type="Contact[]" />
 
 
     <force:recordData aura:id="forceRecord"
-                      recordId="{!v.recordId}"
-                      targetFields="{!v.AccountRecord}"
-                      fields="Id,Name,Beds__c,Baths__c,Price__c,Status__c"
-                      mode="EDIT" />
+        recordId="{!v.recordId}"
+        targetFields="{!v.accountRecord}"
+        fields="Id,Name,Beds__c,Baths__c,Price__c,Status__c"
+        mode="EDIT" />
 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
 
-
-    <aura:iteration items="{!v.ContactsList}" var="contact"> 
+    <ul class="slds-list_vertical slds-has-dividers_top-space">
+        <aura:iteration items="{!v.contactsList}" var="item"> 
+            <li class="slds-list__item">
+                <c:ContactCard contact="{!item}"/>
+            </li>
+        </aura:iteration> 
+    </ul>
         
-        <div>
-            <div>{!contact.Name}</div>
-            <div>{!contact.Email}</div>
-            <div>{!contact.Title}</div>
-            <div>{!contact.Id}</div>
-        </div>
-
-
-
-    </aura:iteration> 
-
-    <div>test msg: {!v.recordId}</div>
 </aura:component>

@@ -8,7 +8,8 @@
         action.setCallback(this, function(response) { 
             var state = response.getState();
             if (state === "SUCCESS") {
-                component.set("v.ContactsList", response.getReturnValue());
+                console.log(response.getReturnValue())
+                component.set("v.contactsList", response.getReturnValue());
             }
         });
         $A.enqueueAction(action);
