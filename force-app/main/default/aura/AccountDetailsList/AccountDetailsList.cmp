@@ -1,6 +1,7 @@
 <aura:component implements="lightning:actionOverride,flexipage:availableForRecordHome,force:hasRecordId" access="global" controller="AccountDetailsController">
     <aura:attribute name="accountRecord" type="Account" />
     <aura:attribute name="contactsList" type="Contact[]" />
+    <aura:attribute name="mode" type="Boolean" default="true" />
 
 
     <force:recordData aura:id="forceRecord"
@@ -11,10 +12,29 @@
 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
 
+    <div class="c-container">
+        <lightning:layout horizontalAlign="space">
+            <lightning:layoutItem size="10" padding="around-small" >
+                <div class="custom-box header">Contacts:</div>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="2" padding="around-small">
+                <div class="custom-box">
+                    <lightning:button label="{!v.mode ? 'Edit all' : 'View all'}" 
+                        iconName="{!v.mode ? 'utility:edit' : 'utility:desktop'}"
+                        iconPosition="right" 
+                        variant="{!v.mode ? 'brand' : 'neutral'}" 
+                        onclick="{!c.onclick}" />
+                </div>
+            </lightning:layoutItem>
+        </lightning:layout>
+    </div>
+
+
+
     <ul class="slds-list_vertical slds-has-dividers_top-space">
         <aura:iteration items="{!v.contactsList}" var="item"> 
             <li class="slds-list__item">
-                <c:ContactCard contact="{!item}"/>
+                <c:ContactCard contact="{!item}" mode="{!v.mode}"/>
             </li>
         </aura:iteration> 
     </ul>

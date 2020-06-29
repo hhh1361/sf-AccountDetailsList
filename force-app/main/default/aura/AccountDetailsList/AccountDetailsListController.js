@@ -14,4 +14,7 @@
         });
         $A.enqueueAction(action);
     },
+    onclick: function(component, event, helper) {
+        component.set("v.mode", !component.get("v.mode"))
+    }
 })
