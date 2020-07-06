@@ -14,7 +14,8 @@
         });
         $A.enqueueAction(action);
     },
-    onclick: function(component, event, helper) {
+    changeMode: function(component, event, helper) {
+        console.log(!component.get("v.mode"))
         component.set("v.mode", !component.get("v.mode"))
     }
 })

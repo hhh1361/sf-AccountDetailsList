@@ -1,17 +1,26 @@
 <aura:component implements="lightning:actionOverride,flexipage:availableForRecordHome,force:hasRecordId" access="global" controller="AccountDetailsController">
     <aura:attribute name="contact" type="Contact" />
+    <aura:attribute name="display" type="Boolean" default="true"/>
     <aura:attribute name="mode" type="Boolean" default="true" />
-    <aura:attribute name="contactFields" type="String[]" default="FirstName,LastName,Title,Email,AccountId"/>
+    <aura:attribute name="fields" type="String[]" default="FirstName,LastName,Title,Email,AccountId"/>
 
-        <lightning:card iconName="standard:user" title="{!v.contact.Name}">
-            <div class="slds-p-left_large slds-p-right_medium">
-                <lightning:recordForm aura:id="contactForm"
-                    recordId="{!v.contact.Id}"
-                    objectApiName="Contact"
-                    fields="{!v.contactFields}"
-                    columns="5"
-                    mode="{!v.mode ? 'readonly' : 'edit'}"/>
-            </div>
-        </lightning:card>
+    
+    <aura:if isTrue="{!v.display}">
+        <li class="slds-list__item">
+            <lightning:card iconName="standard:user" title="{!v.contact.Name}">
+                <div class="slds-p-left_large slds-p-right_medium">
+                    <lightning:recordForm aura:id="contactForm"
+                        recordId="{!v.contact.Id}"
+                        objectApiName="Contact"
+                        fields="{!v.fields}"
+                        columns="5"
+                        mode="{!v.mode ? 'view' : 'edit'}"
+                        onsuccess="{!c.onSuccess}"
+                        onsubmit="{!c.onSubmit}"
+                        onerror="{!c.onError}" />
+                </div>
+            </lightning:card>
+        </li>  
+    </aura:if>
 
 </aura:component>

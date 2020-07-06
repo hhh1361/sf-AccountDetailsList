@@ -2,15 +2,13 @@
     <aura:attribute name="accountRecord" type="Account" />
     <aura:attribute name="contactsList" type="Contact[]" />
     <aura:attribute name="mode" type="Boolean" default="true" />
-
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
 
     <force:recordData aura:id="forceRecord"
         recordId="{!v.recordId}"
         targetFields="{!v.accountRecord}"
-        fields="Id,Name,Beds__c,Baths__c,Price__c,Status__c"
-        mode="EDIT" />
-
-    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+        fields="Id"
+        mode="VIEW" />
 
     <div class="c-container">
         <lightning:layout horizontalAlign="space">
@@ -23,19 +21,14 @@
                         iconName="{!v.mode ? 'utility:edit' : 'utility:desktop'}"
                         iconPosition="right" 
                         variant="{!v.mode ? 'brand' : 'neutral'}" 
-                        onclick="{!c.onclick}" />
+                        onclick="{!c.changeMode}" />
                 </div>
             </lightning:layoutItem>
         </lightning:layout>
     </div>
-
-
-
     <ul class="slds-list_vertical slds-has-dividers_top-space">
         <aura:iteration items="{!v.contactsList}" var="item"> 
-            <li class="slds-list__item">
-                <c:ContactCard contact="{!item}" mode="{!v.mode}"/>
-            </li>
+            <c:ContactCard contact="{!item}" mode="{!v.mode}"/>
         </aura:iteration> 
     </ul>
         
